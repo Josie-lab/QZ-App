@@ -1,0 +1,1036 @@
+:root{
+  --accent:#0066aa;
+  --paid:#ffd2a6;
+  --bg:#f7f9fb;
+  --card:#fff;
+  --muted:#666;
+  --max-width:1700px;
+  font-family: "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;background:var(--bg);color:#111}
+.container{max-width:var(--max-width);margin:0 auto;padding:1rem}
+
+/* =========================
+   Header – groß & professionell
+   ========================= */
+
+.site-header {
+  background: #ffffff;
+  border-bottom: 2px solid #e1e8ef;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  width: 100%;
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem 1.8rem; /* 👈 Tablet & Desktop Luft */
+}
+
+/* Branding */
+.brand {
+  display: flex;
+  flex-direction: column;
+}
+
+.brand-title {
+  font-size: 1.75rem;   /* 👈 größer, aber ruhig */
+  font-weight: 700;
+  color: #0b4f8a;
+  letter-spacing: 0.4px;
+}
+
+.brand-subtitle {
+  font-size: 0.9rem;
+  color: var(--muted);
+  margin-top: 0.2rem;
+}
+
+/* Navigation */
+.main-nav {
+  display: flex;
+  gap: 2rem;
+}
+
+.main-nav a {
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  color: #222;
+  position: relative;
+  padding-bottom: 4px;
+}
+
+.main-nav a.active::after {
+  width: 100%;
+}
+
+/* Underline Hover Animation */
+.main-nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 2px;
+  background: var(--accent);
+  transition: width 0.25s ease;
+}
+
+.main-nav a:hover::after {
+  width: 100%;
+}
+
+/* Burger Button – standardmäßig AUS */
+.burger {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.7rem;
+  cursor: pointer;
+  color: #0b4f8a;
+}
+
+/* =========================
+   Tablet (iPad etc.)
+   ========================= */
+@media (max-width: 1024px) {
+
+  .header-inner {
+    padding: 1.5rem 1.8rem; /* etwas kompakter */
+  }
+
+  .brand-title {
+    font-size: 1.55rem;
+  }
+
+  .main-nav {
+    gap: 1.6rem;
+  }
+}
+
+/* =========================
+   Handy – Burger Menu
+   ========================= */
+@media (max-width: 768px) {
+
+  body {
+    padding-top: 180px; /* Abstand für festen Header */
+  }
+
+  .site-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+  }
+
+  .header-inner {
+    padding: 0.8rem 1.2rem; /* kompakter, aber Rand bleibt */
+  }
+
+  .burger {
+    display: block;
+  }
+
+  .main-nav {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: #ffffff;
+    flex-direction: column;
+    width: 220px;
+    padding: 1rem 1.2rem;
+    border: 1px solid #e1e8ef;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+    display: none;
+  }
+
+  .main-nav.open {
+    display: flex;
+  }
+
+  .main-nav a {
+    padding: 0.5rem 0;
+    font-size: 1rem;
+  }
+}
+
+/* Controls */
+.controls{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:0.5rem;margin:1rem 0}
+.month-nav{display:flex;align-items:center;gap:.5rem}
+.month-nav h2{margin:0;font-size:1.7rem}
+.month-nav button{background:#fff;border:1px solid #d0d7df;padding:.4rem .6rem;border-radius:6px;cursor:pointer}
+
+/* View toggle */
+.view-toggle button {
+  margin-left: .5rem;
+  padding: .4rem .6rem;
+  border-radius: 6px;
+  border: 1px solid #d0d7df;
+  background: #fff;
+  cursor: pointer;
+
+  /* NEU */
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+}
+
+/* Hover: minimal größer */
+.view-toggle button:hover {
+  transform: scale(1.03);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+/* Aktiver Button */
+.view-toggle button.active {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(0,102,170,0.08);
+}
+
+/* Optional: active + hover kombiniert */
+.view-toggle button.active:hover {
+  transform: scale(1.04);
+}
+/* Calendar grid */
+.calendar-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;background:transparent}
+.weekday{background:transparent;padding:6px;text-align:center;font-weight:600;color:var(--muted)}
+.day-cell{min-height:90px;background:var(--card);padding:6px;border-radius:8px;border:1px solid #e6edf4;display:flex;flex-direction:column;justify-content:flex-start;gap:6px;overflow:hidden; transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;}
+
+.day-cell:hover {
+  transform: scale(1.015);
+  border-color: var(--accent);
+  box-shadow: 0 3px 10px rgba(0,102,170,0.12);
+  cursor: pointer;
+}
+.day-cell .date{font-weight:700;font-size:.95rem}
+.day-cell .event{font-size:.85rem;padding:.2rem .35rem;border-radius:6px;text-decoration:none;display:inline-block;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.event .badge{font-size:0.75rem;padding:2px 6px;border-radius:999px;margin-left:6px}
+
+/* Paid event highlight */
+.event.paid{background:linear-gradient(90deg, #fff7ef, var(--paid));border:1px solid #f7caa1}
+.event.online{color:#1a73e8;border-left:5px solid #1a73e8; font-weight: bold;}
+.event.presence{color: #25923eff; border-left:5px solid #25923eff; font-weight: bold;}
+
+/* Table */
+
+/* Ads / Admin edit */
+.ad-sidebar{padding:0.5rem}
+.ad-sidebar .ad-item{padding:8px;border-radius:8px;margin-bottom:8px}
+.ad-sidebar .ad-item img{max-width:100%;height:auto;border-radius:6px}
+.admin-edit{display:none;padding:.35rem .6rem;border-radius:6px;border:1px solid #d0d7df;background:#fff;cursor:pointer;transition:transform 0.12s ease, box-shadow 0.12s ease;transform-origin:center center}
+.admin-edit:hover{transform:scale(1.06);box-shadow:0 6px 14px rgba(15,34,60,0.08)}
+.admin-edit:active{transform:scale(0.88)}
+.admin-mode .admin-edit{display:inline-block}
+
+/* Center edit button under each ad and keep hidden unless admin-mode */
+.ad-item .ad-actions{margin-top:8px;text-align:center;display:block;width:100%;clear:both}
+.ad-item .ad-actions .admin-edit{display:none}
+.admin-mode .ad-item .ad-actions .admin-edit{display:inline-block}
+
+/* Ensure anchors and images inside ad-item take full width so the action row falls below */
+.ad-item > a, .ad-item > img { display: block; width: 100%; }
+
+/* Delete button in blog posts: use same base styling but show destructive color */
+.delete-btn {
+  color: #c0392b; /* destructive red */
+  background: #fff;
+  border: 1px solid #c0392b;
+  padding: .35rem .65rem;
+  border-radius: 6px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.delete-btn {
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+  transform-origin: center center;
+}
+.delete-btn:hover { 
+  transform: scale(1.02); 
+  box-shadow: 0 6px 14px rgba(15,34,60,0.06); 
+}
+/* Admin primary button (Neuen Beitrag) */
+.admin-primary-btn {
+  display: inline-block;
+  padding: 0.5rem 0.9rem;
+  border-radius: 8px;
+  border: 2px solid var(--accent);
+  color: var(--accent);
+  background: transparent;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.12s ease, background-color 0.12s ease, color 0.12s ease, box-shadow 0.12s ease;
+}
+.admin-primary-btn:hover {
+  transform: scale(1.04);
+  background: var(--accent);
+  color: #fff;
+  box-shadow: 0 8px 20px rgba(6,45,80,0.12);
+}
+.admin-primary-btn:active { transform: scale(0.99); }
+
+@media (max-width:700px){
+  .admin-primary-btn { display:block; width:100%; text-align:center; }
+}
+
+.table-section table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid #e6edf4}
+.table-section th,.table-section td{padding:1rem;border-bottom:1px solid #eef3f7;text-align:left}
+.table-section th{background:#f3f8fc;font-weight:600}
+
+/* Modal */
+.modal{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(10,20,30,0.35);z-index:150}
+.modal-content{
+  background: var(--card);
+  border-radius: 12px;
+  border: 1px solid #e6edf4;
+  max-width: 500px;
+  width: 95%;
+  padding: 1.5rem;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  animation: fadeIn 0.25s ease-out;
+}
+
+/* Ad Editor Modal — nicer spacing and inputs */
+#adEditorModal .modal-content{
+  max-width: 560px;
+  padding: 1.25rem 1.4rem;
+  gap: 1.15rem;
+}
+
+#adEditorModal label{
+  display:flex;
+  flex-direction:column;
+  gap:0.45rem;
+  font-size:0.95rem;
+  color:#233248;
+}
+
+#adEditorModal #adImagePreview{
+  width:100%;
+  max-height:220px;
+  object-fit:cover;
+  border-radius:8px;
+  border:1px solid #e6edf4;
+  padding:6px;
+  background:#fff;
+  box-shadow:0 6px 18px rgba(15,34,60,0.04);
+}
+
+#adEditorModal input[type="file"],
+#adEditorModal input[type="url"],
+#adEditorModal textarea{
+  padding:0.6rem 0.7rem;
+  border-radius:8px;
+  border:1px solid #dbe8f2;
+  background:#fff;
+  transition:box-shadow .12s ease, border-color .12s ease;
+}
+
+#adEditorModal textarea{min-height:84px;resize:vertical}
+
+#adEditorModal input[type="file"]{padding:0.35rem}
+
+#adEditorModal input[type="url"]::placeholder{color:#9aa6b3}
+
+#adEditorModal .modal-actions{gap:0.6rem}
+
+/* Make labels & controls breathe a little more */
+#adEditorModal label + label{margin-top:0.25rem}
+
+/* Slightly reduce modal width on very small screens */
+@media (max-width:420px){
+  #adEditorModal .modal-content{padding:0.9rem;width:96%}
+  #adEditorModal #adImagePreview{max-height:160px}
+}
+
+/* Editor Modal (Neuen Beitrag erstellen) — improved spacing & input styling */
+#editorModal .modal-content{
+  max-width: 640px;
+  padding: 1.25rem 1.4rem;
+  gap: 1rem;
+}
+
+#editorModal label{
+  display:flex;
+  flex-direction:column;
+  gap:0.45rem;
+  font-size:0.95rem;
+  color:#233248;
+}
+
+#editorModal input[type="text"],
+#editorModal input[type="date"],
+#editorModal input[type="url"],
+#editorModal textarea,
+#editorModal input[type="file"]{
+  padding:0.6rem 0.7rem;
+  border-radius:8px;
+  border:1px solid #dbe8f2;
+  background:#fff;
+  transition:box-shadow .12s ease, border-color .12s ease;
+}
+
+#editorModal textarea{min-height:140px;resize:vertical}
+#editorModal input[type="file"]{padding:0.35rem}
+
+#editorModal .modal-actions{gap:0.6rem}
+
+/* make the image inputs and link field align visually in a column */
+#editorModal #postImage1, #editorModal #postImage2, #editorModal #postLink{width:100%}
+
+@media (max-width:420px){
+  #editorModal .modal-content{padding:0.9rem;width:96%}
+}
+
+.modal h3 {
+  margin: 0 0 0.75rem 0;
+  font-size: 1.25rem;
+  color: var(--accent);
+  text-align: center;
+}
+
+#editorArea{width:100%;height:320px;border-radius:8px;border:1px solid #dbe8f2;padding:0.6rem;font-family:monospace;white-space:pre;overflow:auto}
+.modal-actions{display:flex;gap:.5rem;justify-content:flex-end;margin-top:.5rem}
+.muted{color:var(--muted);font-size:.9rem}
+
+/* ---------------------------
+   Add Event Modal Styling
+----------------------------*/
+#addEventModal .modal-content {
+  background: var(--card);
+  border-radius: 12px;
+  border: 1px solid #e6edf4;
+  max-width: 500px;
+  width: 95%;
+  padding: 1.5rem;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  animation: fadeIn 0.25s ease-out;
+}
+
+#addEventModal h3 {
+  margin: 0 0 0.75rem 0;
+  font-size: 1.25rem;
+  color: var(--accent);
+  text-align: center;
+}
+
+#editEventModal .modal-content {
+  background: var(--card);
+  border-radius: 12px;
+  border: 1px solid #e6edf4;
+  max-width: 500px;
+  width: 95%;
+  padding: 1.5rem;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  animation: fadeIn 0.25s ease-out;
+}
+
+
+#addEventForm label {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+  gap: 0.25rem;
+  color: #333;
+}
+
+#addEventForm input[type="text"],
+#addEventForm input[type="date"],
+#addEventForm input[type="url"],
+#addEventForm select {
+  padding: 0.5rem 0.6rem;
+  border: 1px solid #dbe8f2;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  transition: border-color 0.2s;
+}
+
+#addEventForm input:focus,
+#addEventForm select:focus {
+  border-color: var(--accent);
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(0,102,170,0.15);
+}
+
+/* Honorar mit Checkbox in einer Zeile, optisch wie die anderen Labels */
+#addEventForm .honorar-row {
+  display: flex;
+  align-items: center;        /* vertikal zentriert */
+  gap: 1rem;                  /* Abstand zwischen Label und Checkbox */
+  margin-bottom: 0.8rem;
+}
+
+#addEventForm .honorar-row label {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+  gap: 0.25rem;
+  color: #333;   
+}
+
+#addEventForm .honorar-row input[type="checkbox"] {
+  width: auto;
+  margin: 0;                  /* entfernt Standard-Margin */
+}
+
+
+
+#addEventForm .modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+#addEventForm .modal-actions button {
+  padding: 0.45rem 1rem;
+  border-radius: 8px;
+  border: 1px solid #d0d7df;
+  background: #fff;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.modal-actions button {
+  padding: 0.45rem 1rem;
+  border-radius: 8px;
+  border: 1px solid #d0d7df;
+  background: #fff;
+  cursor: pointer;
+  font-weight: 600;
+  margin-top: 1rem;
+  transition: all 0.2s;
+}
+
+.modal-actions button:hover {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+
+#addEventForm .modal-actions button:hover {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+
+#addEventForm .modal-actions button[type="submit"] {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+
+#addEventForm .modal-actions button[type="submit"]:hover {
+  background: #005799;
+  border-color: #005799;
+}
+
+/* Optional: Fade-in Animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px);}
+  to { opacity: 1; transform: translateY(0);}
+}
+
+/* Admin Button oben rechts, sehr unauffällig */
+.admin-login-btn {
+  position: fixed;
+  top: 6px;
+  right: 6px;
+  background: transparent;
+  border: none;
+  color: #ffffff;
+  font-size: 0.75rem;
+  padding: 4px 6px;
+  cursor: pointer;
+  opacity: 0.4;
+  transition: opacity .2s;
+  z-index: 200;
+}
+.admin-login-btn:hover {
+  opacity: 1;
+  cursor: default;
+}
+
+/* Admin Login Modal Inputs */
+#adminLoginModal input[type="password"] {
+  padding: 0.5rem;
+  border-radius: 8px;
+  border: 1px solid #dbe8f2;
+}
+
+/* Day Info Modal Event Items */
+.day-info-event {
+  padding: 0.75rem 1rem;
+  margin-bottom: 0.75rem;
+  border: 1px solid #e6edf4;
+  border-radius: 8px;
+  background: var(--card);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+}
+
+.day-info-event h4 {
+  margin: 0 0 0.25rem 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.day-info-event p {
+  margin: 0.15rem 0;
+  font-size: 0.9rem;
+  color: #333;
+}
+
+.day-info-event a {
+  color: var(--accent);
+  text-decoration: underline;
+  font-size: 0.9rem;
+}
+
+#addEventFromDay {
+  background: var(--accent);
+  color: #fff;
+  border: 1px solid var(--accent);
+  padding: 0.4rem 0.75rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+#addEventFromDay:hover {
+  background: #005799;
+  border-color: #005799;
+}
+
+#dayInfoEvents {
+  max-height: 350px;
+  overflow-y: auto;
+  margin-top: 0.75rem;
+}
+
+.main-content {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+
+/* Layout für Hauptbereich + Sidebar */
+.layout-container {
+  display: flex;
+  gap: 1.5rem;
+  
+}
+
+.ad-item {
+  text-align: center;   /* Text unter dem Bild zentrieren */
+}
+
+.ad-text {
+  font-size: 0.9rem;
+  color: #555;
+  margin-top: 5px;
+}
+
+/* Links: Inhalt */
+.main-content {
+  flex: 1;
+}
+
+/* Rechts: Werbespalte */
+.ad-sidebar {
+  width: 350px;           /* schmal, unaufdringlich */
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  position: sticky;       /* bleibt sichtbar beim Scrollen */
+  top: 1rem;
+  padding-left: 1rem;
+  padding-top: 5rem;
+}
+
+.ad-sidebar img {
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid #e6edf4;
+  background: white;
+  object-fit: cover;
+}
+
+/* Remove underline from ad links */
+.ad-sidebar .ad-item a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Placeholder for empty ad slots: subtle, non-intrusive */
+.ad-item.ad-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 120px;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px dashed #e6edf4;
+  background: linear-gradient(180deg, rgba(230,240,250,0.6), rgba(247,249,251,0.6));
+  color: #6b7280;
+}
+.ad-placeholder-box {
+  background: rgba(255,255,255,0.6);
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-weight: 600;
+  color: #35506b;
+  box-shadow: 0 6px 18px rgba(15,34,60,0.03);
+}
+.ad-placeholder-sub {
+  margin: 6px 0 0 0;
+  font-size: 0.9rem;
+  color: #7a8088;
+}
+
+#eventTable th.delete-cell,
+#eventTable td.delete-cell {
+  display: none;
+}
+
+#eventTable.admin th.delete-cell,
+#eventTable.admin td.delete-cell {
+  display: table-cell;
+}
+ 
+/* Honorarpflichtige Events */
+#eventTable tr.paid-event {
+  background: linear-gradient(90deg, #fffaf0, #ffe6c2);
+  border-left: 4px solid #ff9900; /* Akzentfarbe */
+  transition: all 0.2s ease;
+}
+
+#eventTable tr.paid-event:hover {
+  background: linear-gradient(90deg, #fff4e6, #ffd699);
+  transform: translateX(2px);
+  box-shadow: 0 2px 8px rgba(255, 153, 0, 0.25);
+}
+
+#eventTable tr:hover {
+  transform: translateX(2px);
+  box-shadow: 0 2px 8px rgba(255, 153, 0, 0.25);
+}
+
+/* Event-Legende unter dem Kalender */
+.event-legend {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  color: #333;
+  flex-wrap: wrap;
+}
+
+.event-legend .legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+/* =========================
+   Aktuelles / Blog Styles
+   ========================= */
+.blog-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.blog-post{
+  background: var(--card);
+  border: 1px solid #e6edf4;
+  border-radius: 10px;
+  padding: 1rem;
+  box-shadow: 0 6px 18px rgba(15,34,60,0.04);
+}
+
+.blog-post:first-of-type {
+  margin-top: 1rem;
+}
+
+.blog-post h3{margin:0 0 .35rem;color:var(--accent)}
+.blog-post .meta{color:var(--muted);font-size:0.9rem;margin-bottom:.5rem}
+.blog-post img{display:block;width:100%;max-width:30% !important;height:auto;border-radius:8px;margin:.5rem 0}
+.blog-post p{margin:.4rem 0;line-height:1.45}
+.blog-post button{margin-top:.6rem}
+
+/* New post button inserted above posts */
+.blog-section > button{align-self:flex-start;padding:.5rem .8rem;border-radius:8px;border:1px solid #d7e6f3;background:var(--card);cursor:pointer}
+
+/* Ensure layout keeps main content readable next to sidebar */
+@media (min-width:1181px){
+  .layout-container { align-items:flex-start; }
+  .main-content{flex:1 1 0;}
+  .ad-sidebar{flex:0 0 350px}
+}
+
+.event-legend .legend-color {
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+  display: inline-block;
+  border: 1px solid #ccc;
+}
+
+/* Farben passend zu Kalender-Events */
+.event-legend .legend-color.online {
+  background-color: #1a73e8; /* wie online in Kalender */
+  border-color: #3f7dde;
+}
+
+.event-legend .legend-color.presence {
+  background-color: #25923eff; /* wie Präsenz */
+  border-color: #25923eff;
+}
+
+.event-legend .legend-color.paid {
+  background: linear-gradient(90deg, #fffaf0, #ffe6c2); /* wie Honorar-Events */
+  border-left: 4px solid #ff9900;
+}
+
+/* Links-Seite vertikal */
+.links-page .links-section {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px 0;
+}
+
+.links-page .link-card a {
+  display: flex;
+  background-color: #f9f9f9;
+  border-radius: 12px;
+  overflow: hidden;
+  text-decoration: none;
+  color: #333;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.links-page .link-card a:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.links-page .link-card img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.links-page .link-info {
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.links-page .link-info h3 {
+  margin: 0 0 8px;
+  font-size: 18px;
+  color: #1a73e8;
+}
+
+.links-page .link-info p {
+  margin: 0;
+  font-size: 14px;
+  color: #555;
+  line-height: 1.4;
+}
+
+/* Responsive: Modal full-width on small screens */
+@media (max-width:500px){
+  #addEventModal .modal-content { width: 95%; padding: 1rem; }
+  #addEventForm input, #addEventForm select { font-size: 0.9rem; padding: 0.45rem; }
+  #addEventForm .modal-actions button { padding: 0.4rem 0.8rem; font-size: 0.9rem; }
+}
+
+/* Footer */
+.site-footer{padding:1rem 0;margin-top:1rem;color:var(--muted)}
+
+/* Remove image button hover effect */
+.remove-image-btn {
+  transition: transform 0.2s ease;
+}
+
+.remove-image-btn:hover {
+  transform: scale(1.01);
+}
+
+/* Utilities */
+.hidden{display:none}
+.visually-hidden{position:absolute!important;height:1px;width:1px;overflow:hidden;clip:rect(1px,1px,1px,1px);white-space:nowrap}
+
+ #dayInfoEvents {
+    max-height: 250px;
+  }
+
+/* Responsive */
+@media (max-width: 800px) {
+
+  .controls {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+  }
+
+  .month-nav {
+    justify-content: center;
+  }
+
+  .view-toggle {
+    justify-content: center;
+  }
+
+  .view-toggle button {
+    flex: 1 1 45%;
+    max-width: none;
+    margin-top: 1rem;
+  }
+}
+
+/* Mobile Table Optimization */
+@media (max-width:1180px){
+  .table-section{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+  #eventTable{min-width:900px;}
+  #eventTable th,#eventTable td{white-space:nowrap;padding:.6rem .8rem;font-size:.9rem;}
+  .view-toggle button,.month-nav button{padding:.6rem 1rem;font-size:1rem;}
+}
+
+/* =========================
+   iPad: Ads nebeneinander
+   ========================= */
+@media (max-width: 1024px) and (min-width: 601px) {
+
+  .layout-container {
+    flex-direction: column;
+  }
+
+  .ad-sidebar {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    width: 100%;
+    position: static;
+    padding-left: 0;
+    padding-top: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .ad-item {
+    text-align: center;
+  }
+
+  .ad-item img {
+    width: 100%;
+    height: auto;
+  }
+
+  .ad-text {
+    font-size: 1rem;
+    text-align: center;
+  }
+}
+
+/* =========================
+   Handy: Ads untereinander
+   ========================= */
+@media (max-width: 600px) {
+
+  .layout-container {
+    flex-direction: column;
+  }
+
+  .ad-sidebar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+
+    /* WICHTIG: Sidebar selbst zentrieren */
+    width: 100%;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .ad-item {
+    width: 100%;
+    max-width: 360px;
+
+    /* DAS ist der entscheidende Fix */
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .ad-item img {
+    width: 100%;
+    display: block;
+    margin: 0 auto;
+  }
+
+  .ad-text {
+    font-size: 0.85rem;
+    text-align: center;
+  }
+}
+.main-content > p {
+  background: linear-gradient(90deg, #f0f6fb, #ffffff); /* sanfter Verlauf */
+  border-left: 4px solid var(--accent);                /* Akzent links */
+  padding: 1rem 1.2rem;                               /* Innenabstand */
+  border-radius: 10px;                                /* abgerundete Ecken */
+  box-shadow: 0 3px 10px rgba(0, 102, 170, 0.08);    /* leichter Schatten */
+  line-height: 1.6;                                   /* bessere Lesbarkeit */
+  color: #222;                                        /* dunkle Schrift */
+  font-size: 0.95rem;                                 /* angenehme Größe */
+  margin-bottom: 1.5rem;                              /* Abstand zum Kalender */
+}
+
+.email {
+  color: #0066aa;         /* auffällige Farbe */
+  font-weight: bold;       /* redundant, da <strong> schon bold ist */
+  text-decoration: underline; /* Hinweis, dass klickbar/Interaktiv */
+  font-family: Arial, sans-serif; /* klare Lesbarkeit */
+   display: inline-block;  /* wichtig für transform */
+  transition: transform 0.2s ease, color 0.2s ease; /* sanfte Animation */
+}
+
+.email:hover {
+  color: #1a73e8;
+  
+  transform: scale(1.01); /* 5% größer beim Hover */
+}
+
+.small-gap {
+  display: block;      /* Block erzeugt Zeilenabstand */
+  height: 0.3em;       /* gewünschter kleiner Abstand */
+}
+
+/* Final overrides to force ad-actions below ad content */
+.ad-sidebar .ad-item{display:block !important;width:100% !important}
+.ad-sidebar .ad-item > a, .ad-sidebar .ad-item > img, .ad-sidebar .ad-item .ad-placeholder-content{display:block;width:100%}
+.ad-sidebar .ad-item .ad-actions{display:flex;justify-content:center;width:100%;clear:both;margin-top:8px}
+.ad-sidebar .ad-item .ad-actions .admin-edit{display:none}
+.admin-mode .ad-sidebar .ad-item .ad-actions .admin-edit{display:inline-block}

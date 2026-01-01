@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Qualitätszirkel – Fortbildungen</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="footer.css" />
+</head>
+<body>
+
+<!-- Hidden Admin Button -->
+<button id="adminLoginBtn" class="admin-login-btn">Admin</button>
+
+<!-- Admin Login Modal -->
+<div id="adminLoginModal" class="modal hidden">
+  <div class="modal-content" style="max-width:400px;">
+    <h3>Admin Login</h3>
+    <form id="adminLoginForm">
+      <label>Passwort:
+        <input type="password" id="adminPassword" required>
+      </label>
+      <div class="modal-actions">
+        <button type="submit">Login</button>
+        <button type="button" id="cancelAdminLogin">Abbrechen</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<header class="site-header">
+  <div class="container header-inner">
+
+    <div class="brand">
+      <span class="brand-title">Pneumo QZ Berlin</span>
+      <span class="brand-subtitle">
+Pneumologische Fortbildungen in Berlin –  Alle Angaben ohne Gewähr. Möchten Sie das eine Fortbildung in dieser Datenbank erscheint bitte Email an <strong class="email">kontakt@pneumochatbb.de</strong>
+</p></span>
+    </div>
+
+    <button id="burgerBtn" class="burger" aria-label="Menü öffnen">
+      ☰
+    </button>
+
+    <nav id="mainNav" class="main-nav">
+      <a href="index.html">Startseite</a>
+      <a href="aktuelles.html">Aktuelles</a>
+      <a href="links.html">Wichtige Links</a>
+    </nav>
+
+  </div>
+</header>
+
+  <main class="layout-container container">
+    <!-- Hauptinhalt links -->
+    <div class="main-content">
+    <section class="controls">
+      <div class="month-nav">
+        <button id="prevMonth">&larr;</button>
+        <h2 id="monthYear">Monat Jahr</h2>
+        <button id="nextMonth">&rarr;</button>
+      </div>
+
+      <div class="view-toggle">
+        <button id="showCalendar" class="active">Kalender</button>
+        <button id="showTable">Tabelle</button>
+        <button id="editEvents" style="display:none">Inhalte bearbeiten</button>
+        <button id="addEvent" style="display:none">Termin eintragen</button>
+      </div>
+    </section>
+
+    <!-- Legende direkt unter dem Kalender -->
+<div id="eventLegend" class="event-legend">
+  <div class="legend-item"><span class="legend-color online"></span> Online</div>
+  <div class="legend-item"><span class="legend-color presence"></span> Präsenz</div>
+  <div class="legend-item"><span class="legend-color paid"></span> Kostenpflichtig</div>
+</div>
+
+<!-- Day Info Modal für Kalendertag -->
+<div id="dayInfoModal" class="modal hidden">
+  <div class="modal-content">
+    <h3 id="dayInfoTitle"></h3>
+    <div id="dayInfoEvents"></div>
+    <div class="modal-actions">
+      <button id="closeDayInfo">Schließen</button>
+      <button id="addEventFromDay" style="display:none;">+ Termin hinzufügen</button>
+    </div>
+  </div>
+</div>
+
+    <section id="calendarSection" class="calendar-section">
+      <div id="calendar" class="calendar-grid"></div>
+    </section>
+
+    <section id="tableSection" class="table-section hidden">
+      <table id="eventTable">
+        <thead>
+          <tr>
+            <th>Datum</th>
+            <th>Veranstaltung</th>
+            <th>Thema</th>
+            <th>Sponsor</th>
+            <th>Ort/Modus</th>
+            <th>Kostenpflichtig</th>
+            <th>Kommentar</th>
+            <th>Anmeldelink</th>
+            <th class="delete-cell">Löschen</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </section>
+</div>
+
+      <!-- Rechte Werbespalte (wird dynamisch befüllt) -->
+  <aside class="ad-sidebar" id="adSidebar"></aside>
+
+  <!-- Ad Editor Modal (Admin) -->
+  <div id="adEditorModal" class="modal hidden">
+    <div class="modal-content" style="max-width:480px;">
+      <h3>Werbung bearbeiten</h3>
+      <form id="adEditorForm">
+        <input type="hidden" id="adIndex">
+        <div style="margin-bottom:.5rem;">
+          <label>Vorschau:</label>
+          <div><img id="adImagePreview" src="" alt="Vorschau" style="max-width:100%;height:auto;border:1px solid #ddd;padding:6px;border-radius:6px;"></div>
+        </div>
+        <label>Neues Bild (optional): <input type="file" id="adImageInput" accept="image/*"></label>
+        <label>Text:
+          <textarea id="adTextInput" rows="3" style="width:100%"></textarea>
+        </label>
+        <label>Link (optional): <input type="url" id="adLinkInput" placeholder="https://..."></label>
+        <div class="modal-actions">
+          <button type="submit">Speichern</button>
+          <button type="button" id="cancelAdEdit">Abbrechen</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  </main>
+
+  <!-- Editor Modal -->
+  <div id="editorModal" class="modal hidden">
+    <div class="modal-content">
+      <h3>Events bearbeiten (JSON)</h3>
+      <textarea id="editorArea"></textarea>
+      <div class="modal-actions">
+        <button id="saveEvents">Speichern</button>
+        <button id="cancelEdit">Abbrechen</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add Event Modal -->
+  <div id="addEventModal" class="modal hidden">
+    <div class="modal-content">
+      <h3>Neuen Termin eintragen</h3>
+      <form id="addEventForm">
+        <label>Datum: <input type="date" id="newEventDate" required></label>
+        <label>Veranstaltung: <input type="text" id="newEventVeranstaltung" required></label>
+        <label>Thema: <input type="text" id="newEventThema" required></label>
+        <label>Sponsor: <input type="text" id="newEventSponsor"></label>
+        <label>Modus:
+          <select id="newEventMode">
+            <option value="Online">Online</option>
+            <option value="Präsenz">Präsenz</option>
+          </select>
+        </label>
+     <div class="honorar-row">
+  <label for="newEventHonorar">Kostenpflichtig:</label>
+  <input type="checkbox" id="newEventHonorar">
+</div>
+<label>Kommentar:
+  <input type="text" id="newEventKommentar">
+</label>
+
+<label>PDF (optional):
+  <input type="file" id="newEventPdf" accept="application/pdf">
+</label>
+        <label>Anmeldelink: <input type="url" id="newEventLink"></label>
+
+        <div class="modal-actions">
+          <button type="submit">Speichern</button>
+          <button type="button" id="cancelAddEvent">Abbrechen</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+<!-- Edit Events Modal -->
+<div id="editEventModal" class="modal hidden">
+  <div class="modal-content">
+    <h3>Termine bearbeiten</h3>
+    <div id="editEventList" style="max-height:550px; overflow-y:auto;"></div>
+    <div class="modal-actions">
+      <button id="closeEditEventModal">Schließen</button>
+    </div>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="container footer-content">
+    <p>&copy; 2025 Dr. de Roux – Alle Rechte vorbehalten</p>
+    <a href="/impressum.html">Impressum & Datenschutz</a>
+    <p class="footer-credit">Webdesign & Programmierung: <a href="https://samantha-josephinetrebus.github.io/Portfolio/" target="_blank" rel="noopener noreferrer">Samantha-Josephine Trebus</a></p>
+  </div>
+</footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

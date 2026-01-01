@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Qualitätszirkel – Aktuelles</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="footer.css" />
+</head>
+<body>
+
+<!-- Hidden Admin Button -->
+<button id="adminLoginBtn" class="admin-login-btn">Admin</button>
+
+<!-- Admin Login Modal -->
+<div id="adminLoginModal" class="modal hidden">
+  <div class="modal-content" style="max-width:400px;">
+    <h3>Admin Login</h3>
+    <form id="adminLoginForm">
+      <label>Passwort:
+        <input type="password" id="adminPassword" required>
+      </label>
+      <div class="modal-actions">
+        <button type="submit">Login</button>
+        <button type="button" id="cancelAdminLogin">Abbrechen</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<header class="site-header">
+  <div class="container header-inner">
+
+    <div class="brand">
+      <span class="brand-title">Pneumo QZ Berlin</span>
+      <span class="brand-subtitle">Pneumologische Fortbildungen in Berlin – lle Angaben ohne Gewähr. Möchten Sie das eine Fortbildung in dieser Datenbank erscheint bitte Email an <strong class="email">kontakt@pneumochatbb.de</strong>
+</p></span>
+    </div>
+
+    <button id="burgerBtn" class="burger" aria-label="Menü öffnen">
+      ☰
+    </button>
+
+    <nav id="mainNav" class="main-nav">
+      <a href="index.html">Startseite</a>
+      <a href="aktuelles.html">Aktuelles</a>
+      <a href="links.html">Wichtige Links</a>
+    </nav>
+
+  </div>
+</header>
+
+<main class="layout-container container">
+  <!-- Hauptinhalt links -->
+  <div class="main-content">
+    <section id="blogPosts" class="blog-section">
+      <!-- Blogbeiträge werden hier dynamisch eingefügt -->
+    </section>
+  </div>
+
+      <!-- Rechte Werbespalte (wird dynamisch befüllt) -->
+  <aside class="ad-sidebar" id="adSidebar"></aside>
+
+  <!-- Ad Editor Modal (Admin) -->
+  <div id="adEditorModal" class="modal hidden">
+    <div class="modal-content" style="max-width:480px;">
+      <h3>Werbung bearbeiten</h3>
+      <form id="adEditorForm">
+        <input type="hidden" id="adIndex">
+        <div style="margin-bottom:.5rem;">
+          <label>Vorschau:</label>
+          <div><img id="adImagePreview" src="" alt="Vorschau" style="max-width:100%;height:auto;border:1px solid #ddd;padding:6px;border-radius:6px;"></div>
+        </div>
+        <label>Neues Bild (optional): <input type="file" id="adImageInput" accept="image/*"></label>
+        <label>Text:
+          <textarea id="adTextInput" rows="3" style="width:100%"></textarea>
+        </label>
+        <label>Link (optional): <input type="url" id="adLinkInput" placeholder="https://..."></label>
+        <div class="modal-actions">
+          <button type="submit">Speichern</button>
+          <button type="button" id="cancelAdEdit">Abbrechen</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</main>
+
+<!-- Admin Editor Modal für Blogeinträge -->
+<div id="editorModal" class="modal hidden">
+  <div class="modal-content">
+    <h3>Neuen Beitrag erstellen</h3>
+    <form id="addPostForm">
+      <label>Titel: <input type="text" id="postTitle" required></label>
+      <label>Datum: <input type="date" id="postDate" required></label>
+      <label>Inhalt: <textarea id="postContent" rows="6" required></textarea></label>
+      <label>Bild 1: <input type="file" id="postImage1" accept="image/*"></label>
+      <label>Bild 2: <input type="file" id="postImage2" accept="image/*"></label>
+      <label>Link: <input type="url" id="postLink" placeholder="https://..."></label>
+      <label>PDF: <input type="file" id="postPdf1" accept=".pdf"></label>
+      <div class="modal-actions">
+        <button type="submit">Speichern</button>
+        <button type="button" id="cancelAddPost">Abbrechen</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="container footer-content">
+    <p>&copy; 2025 Dr. de Roux – Alle Rechte vorbehalten</p>
+    <a href="/impressum.html">Impressum & Datenschutz</a>
+    <p class="footer-credit">Webdesign & Programmierung: <a href="https://samantha-josephinetrebus.github.io/Portfolio/" target="_blank" rel="noopener noreferrer">Samantha-Josephine Trebus</a></p>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+
+</body>
+</html>

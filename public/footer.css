@@ -1,0 +1,54 @@
+.site-footer {
+  background-color: var(--card);
+  border-top: 1px solid #e6edf4;
+  padding: 1rem 0;
+  color: var(--muted);
+  font-size: 1rem;
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  position: relative;
+}
+
+.site-footer a {
+  color: var(--accent);
+  text-decoration: none;
+  transition: color 0.2s;
+  font-weight: 500;
+}
+
+.site-footer a:hover {
+  color: #005799; /* dunklerer Akzent beim Hover */
+}
+
+.footer-credit {
+  position: absolute;
+  right: -6rem;
+  bottom: -1rem;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+@media (max-width: 768px) {
+  .footer-credit {
+    position: static;
+    margin-top: 0.5rem;
+    text-align: center;
+  }
+}
+
+.footer-credit a {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.footer-credit a:hover {
+  color: #005799;
+  text-decoration: underline;
+}

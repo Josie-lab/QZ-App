@@ -1,0 +1,78 @@
+/* impressum.css */
+.impressum-page .site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 200;
+}
+
+.impressum-page main.layout-container {
+  padding-top: 140px;
+}
+
+.layout-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.main-content {
+  flex: 1;
+  width: 100%;
+}
+
+.impressum-section {
+  background: #ffffff;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+  line-height: 1.6;
+  font-size: 1rem;
+  color: #222;
+}
+
+.impressum-section h2,
+.impressum-section h3,
+.impressum-section h1 {
+  margin-top: 20px;
+  color: #003366;
+  font-weight: 600;
+}
+
+.impressum-section pre {
+  white-space: pre-wrap;
+  padding: 0;
+  margin: 0;
+  font-family: inherit;
+  font-size: 1rem;
+}
+
+a {
+  color: #0066aa;
+  font-weight: bold;
+  display: inline-block;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+a:hover {
+  color: #1a73e8;
+  transform: scale(1.01);
+}
+
+@media (max-width: 800px) {
+  .layout-container {
+    padding: 10px;
+  }
+
+  .impressum-section {
+    padding: 15px;
+  }
+}
+
+@media (max-width: 768px) {
+
+  body {
+    padding-top: 80px !important; /* Abstand für festen Header */
+  }
+}
